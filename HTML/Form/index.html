@@ -37,17 +37,33 @@
         <div id="recommend">
           <section>
             <h3> Recommanderez-vous ce produit à d'autres clients ?</h3>
+            <input type="radio" value="Oui"> Oui
+            <input type="radio" value="Non"> Non
           </section>
         </div>
         <div id="rating">
           <h3>Donnez une note entre 1 et 5 :</h3>
+          <select name="Rating" id="baslescouilles">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
         </div>
       </div>
       <div id="comment">
         <h3>Ajoutez un commentaire!</h3>
+        Titre:
+        <input type="text" placeholder="Que faut-il savoir sur le produit ?">
+        Message:
+        <textarea type="text"></textarea>
       </div>
+      <input type="button" value="Envoyer" onclick="submitForm()">
     </form>
   </main>
 </body>
 
 </html>
+
+<!-- FAURDAIT TU METTES DES LABELS C MIEUX APAREMMENT -->
