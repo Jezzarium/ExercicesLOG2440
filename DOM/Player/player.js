@@ -3,9 +3,10 @@ const songs = document.getElementsByClassName('song-item');
 let selectedSong = 0;
 
 // TODO : récupérer le lien vers l'audio
-audio.src = songs[selectedSong];
+audio.src = songs[selectedSong].getAttribute('data-url');
 
 const timeline = document.getElementById('timeline');
+const playButton = document.getElementById('play');
 
 /**
  * Associe une fonction à une chaîne de caractères.
@@ -30,14 +31,38 @@ const shortcutManager = new Map();
 function bindEvents() {
 
     // TODO : ajouter des gestionnaires pour les boutons de contrôle
+    playButton.addEventListener('click', () => {
+        play();
+    });
+
+    document.getElementById('next').addEventListener('click', () => {
+        playNext();
+    })
+
+    document.getElementById('previous').addEventListener('click', () => {
+        playPrevious();
+    })
+
 
     /// TODO : ajouter un gestionnaire à l'élément audio pour le déroulement d'une chanson
-    audio.addEventListener('todo', () => { });
+    audio.addEventListener('timeupdate', () => {
+        if (audio.currentTime) {
+            timeline.setAttribute('value', (audio.currentTime / audio.duration)*100);
+            console.log((audio.currentTime / audio.duration)*100);
+        }
+     });
 
     /// TODO : ajouter un gestionnaire à l'élément audio pour la fin d'une chanson
-    audio.addEventListener('todo', () => { });
+    audio.addEventListener('ended', () => { 
+        playNext();
+    });
 
     /// TODO : ajouter un gestionnaire sur chaque élément song-item qui joue la chanson de l'item
+    Array.from(songs).forEach((song) => {
+        song.addEventListener('click', () => {
+            play(song.getAttribute('data-url'));
+        });
+    });
 
     /// Gestionnaire de contrôle du moment de la chanson en fonction de la barre de progrès
     timeline.addEventListener("input", () => {
@@ -56,6 +81,17 @@ function bindEvents() {
  *  - L            : avancer de 5 secondes
  */
 function bindShortcuts() {
+    shortcutManager.set(' ' ,() => {
+        play();
+    })
+
+    document.addEventListener('keydown', (event) => {
+        const key = event.key.toUpperCase();
+        if(shortcutManager.has(key)) {
+            const func = shortcutManager.get(key);
+            func();
+        }
+    })
 }
 
 bindEvents();

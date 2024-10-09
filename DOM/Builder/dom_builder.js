@@ -54,7 +54,20 @@ const schools = [{
 function createElement(type, props, children) {
     const element = document.createElement(type);
     // TODO : Implémenter la fonction
-    element.append(children ? children[0] : []);
+    if (props) {
+        if (props.id) {
+            element.id = props.id;
+        }
+        
+        element.classList.add(...props.classes ? props.classes : []);
+        if (props.rest) {
+            for(const [attr, value] of Object.entries(props.rest)) {
+                element.setAttribute(attr, value);
+            }
+        }
+    }
+    
+    element.append(...children ? children : []);
 
     return element;
 }
@@ -68,6 +81,8 @@ function buildSchoolCard(school) {
     // TODO
     const card = createElement('a',
         { id: school.id, classes: ['school-card'], rest: { href: school.link, target: '_blank' } });
+    card.append(createElement('img', {classes: ['logo'], rest: {src: `assets/${school.logo}`}}));
+    card.append(createElement('div', {classes: ['info-container']}, [createElement('p', {classes: ['info-name']}, [school.name])]));
     return card;
 }
 
