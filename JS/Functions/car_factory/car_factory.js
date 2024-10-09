@@ -21,7 +21,13 @@
  *  info() retourne l'information de la voiture dans le format suivant : "make model : year"
  */
 function CarFactory(make) {
-    return { };
+    let nCars = 1;
+    return {carsBuilt: ()=>{nCars += 1; return nCars}, carBuilder: (model)=>(year)=> {return {
+        make: make,
+        model: model,
+        year: year,
+        info: () => `${make} ${model} : ${year}`
+    }}};
 }
 
 /// Exemples d'utilisation

@@ -3,12 +3,14 @@ const ButtonHandler = {
         return Math.floor(Math.random() * 10 + 1);
     },
     showValue: function () {
+        console.log(this);
         const randomValue = this.getRandom();
         const display = document.getElementById("random-display");
         display.textContent = `Valeur aléatoire : ${randomValue}`;
     },
     addHandler: function (element) {
-        element.addEventListener("click", this.showValue);
+        console.log(this);
+        element.addEventListener("click", this.showValue.bind(this));
     },
 };
 
