@@ -1,4 +1,4 @@
-const BankAccount = (balance) =>
+const BankAccountOld = (balance) =>
     (function (copyBalance) {
         let balance = copyBalance; // Variable "privée"
         const createMessage = function () { // Méthode "privée"
@@ -27,14 +27,43 @@ const BankAccount = (balance) =>
     })(balance);
 
 // TODO
-// class BankAccount { }
+class BankAccount {
+    #balance
 
-const firstAccount = BankAccount(100); // "Compte créé avec un montant de 100$"
+    constructor(balance) {
+        this.#balance = balance;
+        console.log(`Compte créé avec un montant de ${balance}$`);
+    }
+
+    checkBalance() {
+        return this.#balance;
+    }
+
+    withdraw(amount) {
+        if (this.#balance >= amount) {
+            this.#balance -= amount;
+            return this.#balance;
+        } else {
+            return "Fonds insuffisants";
+        }
+    }
+
+    deposit(amount) {
+        if (amount >= 0) {
+            this.#balance += amount;
+            return this.#balance;
+        } else {
+            return "Impossible de déposer un montant négatif";
+        }
+    }
+ }
+
+const firstAccount = new BankAccount(100); // "Compte créé avec un montant de 100$"
 console.log(firstAccount.balance); // undefined
 console.log(firstAccount.checkBalance()); // 100
 console.log(firstAccount.withdraw(20)); // 80
 console.log(firstAccount.deposit(30)); // 110
 console.log(firstAccount.createMessage); // undefined
-const secondAccount = BankAccount(20); // "Compte créé avec un montant de 20$"
+const secondAccount = new BankAccount(20); // "Compte créé avec un montant de 20$"
 console.log(secondAccount.withdraw(30)); // "Fonds insuffisants"
 console.log(secondAccount.deposit(-20)); // "Impossible de déposer un montant négatif"

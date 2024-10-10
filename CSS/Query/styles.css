@@ -112,7 +112,7 @@ li a {
     }
 }
 
-@media all and (min-width:450px) and (max-width:800px) {
+@media (min-width:450px) and (max-width:800px) {
     .notecard {
         background-color: #15ec15;
     }

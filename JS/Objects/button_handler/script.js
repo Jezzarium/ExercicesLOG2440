@@ -8,11 +8,11 @@ const ButtonHandler = {
         const display = document.getElementById("random-display");
         display.textContent = `Valeur aléatoire : ${randomValue}`;
     },
-    addHandler: function (element) {
-        console.log(this);
-        element.addEventListener("click", this.showValue.bind(this));
+    addHandler: function (element, func) {
+        element.addEventListener("click", () => {this.showValue(func)});
     },
 };
 
 const button = document.getElementById("btn");
-ButtonHandler.addHandler(button);
+const getRandom = () => String.fromCharCode(65 + Math.floor(Math.random() * 26));
+ButtonHandler.addHandler(button, getRandom);
