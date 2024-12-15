@@ -11,13 +11,16 @@ const ACTIONS = {
  * @returns { state } le nouveau état modifié (ou non) par l'action
  */
 const reducer = (state, action) => {
+    
     switch (action.type) {
         case ACTIONS.INCREMENT:
-            return { name: state.name, count: state.count + action.payload };
+            return { name: state.name, count: (state.count + action.payload > state.maxValue ?  state.maxValue : state.count + action.payload), maxValue : state.maxValue };
         case ACTIONS.DECREMENT:
-            return { name: state.name, count: state.count - action.payload };
+            return { name: state.name, count: Math.max(state.count - action.payload, 0), maxValue : state.maxValue };
         case ACTIONS.RESET:
             return { ...state, count: 0 };
+        case ACTIONS.RENAME:
+            return { ...state, name: action.payload ? action.payload : state.name}
         default:
             return state;
     }
